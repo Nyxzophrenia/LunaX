@@ -1,9 +1,8 @@
 #include "Engine.h"
 #include <iostream> // Required for std::cout
 
-// ------------------------------------------------------------
+
 // Constructor
-// ------------------------------------------------------------
 // Sets the initial state of the engine.
 // - m_Running: controls the main loop
 // - m_Paused:  allows update logic to be temporarily disabled
@@ -12,9 +11,9 @@ Engine::Engine()
 {
 }
 
-// ------------------------------------------------------------
+
 // Initialize
-// ------------------------------------------------------------
+
 // Called once at application startup.
 // This is where engine systems would normally be created:
 // - window
