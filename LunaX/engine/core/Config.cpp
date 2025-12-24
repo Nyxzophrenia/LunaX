@@ -9,6 +9,5 @@ bool Config::LoadFromFile(const std::string& path)
 
     std::cout << "[Config] LoadFromFile called: " << path << std::endl;
 
-    // Minimal demo: pretend we loaded config successfully
     return true;
 }

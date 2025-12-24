@@ -1,11 +1,9 @@
 #pragma once
-// Prevents this file from being included more than once
 
 #include <string>      // For window title
-#include <cstdint>     // Fixed-size integers (not used yet, but common in engines)
+#include <cstdint>     // Fixed-size integers
 #include <functional>  // For callbacks
 
-// Simple window class for the engine
 class Window
 {
 public:

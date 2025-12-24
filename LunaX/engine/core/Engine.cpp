@@ -25,9 +25,7 @@ void Engine::Initialize()
     std::cout << "[Engine] Initialized\n";
 }
 
-// ------------------------------------------------------------
 // Step (Update)
-// ------------------------------------------------------------
 // Called every frame from the main loop.
 // dt = delta time in seconds since the last frame.
 // Used to update game logic, physics, AI, etc.
@@ -41,9 +39,7 @@ void Engine::Step(double dt)
     std::cout << "[Engine] Step: dt = " << dt << "\n";
 }
 
-// ------------------------------------------------------------
 // Render
-// ------------------------------------------------------------
 // Called every frame after Step().
 // Responsible for drawing the current state to the screen.
 void Engine::Render()
@@ -51,9 +47,7 @@ void Engine::Render()
     std::cout << "[Engine] Render\n";
 }
 
-// ------------------------------------------------------------
 // Shutdown
-// ------------------------------------------------------------
 // Called once when the application is closing.
 // This is where engine systems should be destroyed and
 // resources released (memory, GPU objects, files, etc.).
@@ -62,9 +56,7 @@ void Engine::Shutdown()
     std::cout << "[Engine] Shutdown\n";
 }
 
-// ------------------------------------------------------------
 // SetPaused
-// ------------------------------------------------------------
 // Enables or disables update processing.
 // Useful for pause menus, debugging, or background states.
 void Engine::SetPaused(bool paused)
@@ -72,9 +64,7 @@ void Engine::SetPaused(bool paused)
     m_Paused = paused;
 }
 
-// ------------------------------------------------------------
 // IsRunning
-// ------------------------------------------------------------
 // Returns whether the engine should continue running.
 // Used by the main loop condition.
 bool Engine::IsRunning() const
@@ -82,9 +72,7 @@ bool Engine::IsRunning() const
     return m_Running;
 }
 
-// ------------------------------------------------------------
 // Stop
-// ------------------------------------------------------------
 // Signals the engine to stop running.
 // Typically called when the window is closed or
 // the application wants to exit.
