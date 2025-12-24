@@ -24,6 +24,7 @@ LunaX/
 │  ├─ platform/    # Window and input handling
 │  ├─ scene/       # Scenarios and scene loading
 │  └─ simulation/  # Physics, rules, and simulation logic
+|  └─ renderer/    # Color renderer
 ├─ projects/       # Planned example projects
 ├─ scripting/      # Planned scripting support
 ├─ tests/          # Planned tests
