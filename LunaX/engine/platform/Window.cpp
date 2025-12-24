@@ -1,9 +1,7 @@
 #include "Window.h"
 #include <iostream>
 
-// ------------------------------------------------------------
 // Constructor
-// ------------------------------------------------------------
 // Stores window settings (size and title).
 // Does NOT create the actual OS window yet.
 // That is deferred to Initialize().
@@ -15,18 +13,14 @@ Window::Window(int width, int height, const std::string& title)
 {
 }
 
-// ------------------------------------------------------------
 // Destructor
-// ------------------------------------------------------------
 // Ensures the window is properly closed when the object is destroyed.
 Window::~Window()
 {
     Close();
 }
 
-// ------------------------------------------------------------
 // Initialize
-// ------------------------------------------------------------
 // Creates and initializes the window.
 // In a real engine, this is where platform-specific code would live.
 void Window::Initialize()
@@ -44,9 +38,7 @@ void Window::Initialize()
               << " Title: " << m_Title << "\n";
 }
 
-// ------------------------------------------------------------
 // Update
-// ------------------------------------------------------------
 // Called once per frame by the engine.
 // Used to process window events.
 void Window::Update()
@@ -63,9 +55,9 @@ void Window::Update()
     // Currently this is a placeholder
 }
 
-// ------------------------------------------------------------
+// 
 // Close
-// ------------------------------------------------------------
+// 
 // Closes the window and notifies the engine.
 void Window::Close()
 {

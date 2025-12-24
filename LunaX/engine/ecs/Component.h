@@ -2,11 +2,9 @@
 #include <string>
 #include <memory>
 
-// ------------------------------------------------------------
 // Base class for all engine components
 // Components represent modular pieces of behavior
 // that can be attached to game entities.
-// ------------------------------------------------------------
 class Component
 {
 public:

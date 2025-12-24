@@ -1,8 +1,6 @@
 #include "Registry.h"
 
-// ------------------------------------------------------------
 // CreateEntity
-// ------------------------------------------------------------
 // Returns a new unique entity ID.
 // No memory allocation here.
 Entity Registry::CreateEntity()
@@ -10,9 +8,7 @@ Entity Registry::CreateEntity()
     return m_NextEntity++;
 }
 
-// ------------------------------------------------------------
 // DestroyEntity
-// ------------------------------------------------------------
 // Removes all components that belong to this entity.
 // Shared pointers clean up memory automatically.
 void Registry::DestroyEntity(Entity entity)
@@ -37,9 +33,7 @@ void Registry::AddComponent(Entity entity, T component)
     componentMap[entity] = std::make_shared<T>(std::move(component));
 }
 
-// ------------------------------------------------------------
 // GetComponent
-// ------------------------------------------------------------
 // Returns a pointer to the component if it exists.
 // Returns nullptr if not found.
 template<typename T>
@@ -56,9 +50,7 @@ T* Registry::GetComponent(Entity entity)
     return static_cast<T*>(entityIt->second.get());
 }
 
-// ------------------------------------------------------------
 // Explicit template instantiation
-// ------------------------------------------------------------
 // Needed because templates are defined in cpp
 template void Registry::AddComponent<int>(Entity, int);
 template int* Registry::GetComponent<int>(Entity);

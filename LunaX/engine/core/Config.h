@@ -18,16 +18,16 @@ public:
     bool IsRenderingEnabled() const noexcept { return renderEnabled; }
 
 private:
-    // ===== Timing =====
+    //  Timing 
     static constexpr double DefaultFixedTimestep = 1.0 / 120.0; // seconds
     double fixedTimestep = DefaultFixedTimestep;
 
-    // ===== Window =====
+    //  Window 
     static constexpr int DefaultWindowWidth  = 1920;
     static constexpr int DefaultWindowHeight = 1080;
     int windowWidth  = DefaultWindowWidth;
     int windowHeight = DefaultWindowHeight;
 
-    // ===== Rendering =====
+    //  Rendering 
     bool renderEnabled = true;
 };
