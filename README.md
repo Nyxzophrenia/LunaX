@@ -34,6 +34,7 @@ Build a foundation for future simulations or simple games
 Provide a free and modifiable engine for learning, research, and experimentation
 
 Project Structure
+```
 LunaX/
 ├─ engine/
 │  ├─ core/        # Core utilities (e.g., time management)
@@ -50,6 +51,7 @@ LunaX/
 ├─ TODO.md         # Planned features and tasks
 └─ README.md
 
+```
 ## Current Status
 
 ⚠️ Incomplete and experimental
@@ -65,9 +67,9 @@ There is currently no official build system.
 Compilation may fail or be incomplete at this stage. A build system (e.g., CMake) is planned for future development.
 
 Example (not guaranteed to work):
-
+``` bash
 g++ main.cpp -std=c++17
-
+```
 ## Notes
 
 Intended for educational and personal learning purposes
