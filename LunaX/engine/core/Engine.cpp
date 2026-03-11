@@ -37,15 +37,28 @@ void Engine::Initialize()
             if (v) v->vx = -v->vx;
         });
 
-    // --- Demo: Create entities to test the ECS ---
-    Entity player = m_Registry.CreateEntity();
-    m_Registry.AddComponent<TagComponent>(player, {"Player"});
-    m_Registry.AddComponent<TransformComponent>(player, {0.0, 0.0, 0.0});
-    m_Registry.AddComponent<VelocityComponent>(player, {5.0, 2.0, 0.0});
+    // --- Scenes: Setup and load main demo scenario ---
+    auto mainScene = m_SceneLoader.Create("MainScene");
+    
+    // Add setup for Player
+    mainScene->AddEntitySetup([](Registry& r) {
+        Entity player = r.CreateEntity();
+        r.AddComponent<TagComponent>(player, {"Player"});
+        r.AddComponent<TransformComponent>(player, {0.0, 0.0, 0.0});
+        r.AddComponent<VelocityComponent>(player, {5.0, 2.0, 0.0});
+        return player;
+    });
 
-    Entity obstacle = m_Registry.CreateEntity();
-    m_Registry.AddComponent<TagComponent>(obstacle, {"Obstacle"});
-    m_Registry.AddComponent<TransformComponent>(obstacle, {10.0, 0.0, 0.0});
+    // Add setup for Obstacle
+    mainScene->AddEntitySetup([](Registry& r) {
+        Entity obstacle = r.CreateEntity();
+        r.AddComponent<TagComponent>(obstacle, {"Obstacle"});
+        r.AddComponent<TransformComponent>(obstacle, {10.0, 0.0, 0.0});
+        return obstacle;
+    });
+
+    // Load the scene
+    m_SceneLoader.Load("MainScene", m_Registry);
 
     std::cout << "[Engine] Initialized — "
               << m_Registry.GetAliveEntities().size()

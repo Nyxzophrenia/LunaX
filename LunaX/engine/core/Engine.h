@@ -8,6 +8,7 @@
 #include "../platform/Input.h"
 #include "../renderer/ConsoleRenderer.h"
 #include "../simulation/Simulation.h"
+#include "../scene/ScenarioLoader.h"
 
 // ============================================================
 // Engine
@@ -42,6 +43,9 @@ public:
     // Access to Simulation
     Simulation& GetSimulation() { return m_Simulation; }
 
+    // Access to Scenes
+    ScenarioLoader& GetSceneLoader() { return m_SceneLoader; }
+
 private:
     bool m_Running;
     bool m_Paused;
@@ -51,4 +55,5 @@ private:
     Window m_Window;
     ConsoleRenderer m_Renderer;
     Simulation m_Simulation;
+    ScenarioLoader m_SceneLoader;
 };
