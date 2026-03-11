@@ -1,7 +1,7 @@
 ## Roadmap / TODO
-- Engine core loop
-- Component system (ECS)
-- Window abstraction
-- Rendering system
-- Input handling
-- Audio system
+- [x] Engine core loop
+- [x] Component system (ECS)
+- [x] Window abstraction
+- [x] Rendering system
+- [x] Input handling
+- [ ] Audio system

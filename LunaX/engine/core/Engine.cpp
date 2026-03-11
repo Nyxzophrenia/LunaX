@@ -1,81 +1,115 @@
 #include "Engine.h"
-#include <iostream> // Required for std::cout
+#include "../ecs/Component.h"
+#include <iostream>
 
-
+// ============================================================
 // Constructor
-// Sets the initial state of the engine.
-// - m_Running: controls the main loop
-// - m_Paused:  allows update logic to be temporarily disabled
+// ============================================================
 Engine::Engine()
     : m_Running(true), m_Paused(false)
 {
 }
 
-
+// ============================================================
 // Initialize
-
-// Called once at application startup.
-// This is where engine systems would normally be created:
-// - window
-// - renderer
-// - input
-// - audio
+// ============================================================
+// Sets up the window, creates demo entities to prove the ECS
+// is working, and registers any built-in systems.
 void Engine::Initialize()
 {
-    std::cout << "[Engine] Initialized\n";
+    // --- Window ---
+    m_Window.Initialize();
+    m_Window.SetCloseCallback([this]() {
+        Stop();
+    });
+
+    // --- Simulation (registers PhysicsSystem + RuleSystem) ---
+    m_Simulation.Initialize(m_SystemManager);
+
+    // --- Demo: Bounce rule (reverses velocity at x > 20) ---
+    m_Simulation.GetRuleSystem().AddRule("Bounce at boundary",
+        [](Registry& r, Entity e) {
+            auto* t = r.GetComponent<TransformComponent>(e);
+            return t && (t->x > 20.0 || t->x < -20.0);
+        },
+        [](Registry& r, Entity e) {
+            auto* v = r.GetComponent<VelocityComponent>(e);
+            if (v) v->vx = -v->vx;
+        });
+
+    // --- Demo: Create entities to test the ECS ---
+    Entity player = m_Registry.CreateEntity();
+    m_Registry.AddComponent<TagComponent>(player, {"Player"});
+    m_Registry.AddComponent<TransformComponent>(player, {0.0, 0.0, 0.0});
+    m_Registry.AddComponent<VelocityComponent>(player, {5.0, 2.0, 0.0});
+
+    Entity obstacle = m_Registry.CreateEntity();
+    m_Registry.AddComponent<TagComponent>(obstacle, {"Obstacle"});
+    m_Registry.AddComponent<TransformComponent>(obstacle, {10.0, 0.0, 0.0});
+
+    std::cout << "[Engine] Initialized — "
+              << m_Registry.GetAliveEntities().size()
+              << " entities created\n";
 }
 
+// ============================================================
 // Step (Update)
-// Called every frame from the main loop.
-// dt = delta time in seconds since the last frame.
-// Used to update game logic, physics, AI, etc.
+// ============================================================
+// Called at a fixed timestep. Runs all registered systems.
 void Engine::Step(double dt)
 {
-    // If the engine is paused, skip update logic
-    // Rendering can still continue if desired
     if (m_Paused)
         return;
 
-    std::cout << "[Engine] Step: dt = " << dt << "\n";
+    // Poll keyboard input
+    Input::Update();
+
+    // Escape key stops the engine
+    if (Input::IsKeyPressed(Key::Escape))
+    {
+        Stop();
+        return;
+    }
+
+    // Update all ECS systems
+    m_SystemManager.UpdateAll(m_Registry, dt);
+
+    // Update window events (poll close, etc.)
+    m_Window.Update();
 }
 
+// ============================================================
 // Render
-// Called every frame after Step().
-// Responsible for drawing the current state to the screen.
+// ============================================================
+// Called every frame after Step(). Will forward to a renderer
+// in future priorities.
 void Engine::Render()
 {
-    std::cout << "[Engine] Render\n";
+    m_Renderer.Render(m_Window, m_Registry);
 }
 
+// ============================================================
 // Shutdown
-// Called once when the application is closing.
-// This is where engine systems should be destroyed and
-// resources released (memory, GPU objects, files, etc.).
+// ============================================================
 void Engine::Shutdown()
 {
+    m_Window.Close();
     std::cout << "[Engine] Shutdown\n";
 }
 
-// SetPaused
-// Enables or disables update processing.
-// Useful for pause menus, debugging, or background states.
+// ============================================================
+// State control
+// ============================================================
 void Engine::SetPaused(bool paused)
 {
     m_Paused = paused;
 }
 
-// IsRunning
-// Returns whether the engine should continue running.
-// Used by the main loop condition.
 bool Engine::IsRunning() const
 {
     return m_Running;
 }
 
-// Stop
-// Signals the engine to stop running.
-// Typically called when the window is closed or
-// the application wants to exit.
 void Engine::Stop()
 {
     m_Running = false;

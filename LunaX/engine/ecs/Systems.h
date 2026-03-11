@@ -4,26 +4,35 @@
 #include <vector>
 #include <memory>
 
-// System (base class)
+// ============================================================
+// System (Base Class)
+// ============================================================
 // All systems inherit from this.
-// Each system runs logic every frame.
+// Each system processes entities with specific components
+// every frame.
+// ============================================================
+
 class System
 {
 public:
     virtual ~System() = default;
 
-    // Called once per frame
-    virtual void Update(Registry& registry, float deltaTime) = 0;
+    // Called once per frame with the registry and delta time
+    virtual void Update(Registry& registry, double deltaTime) = 0;
 };
 
-// SystemManager
 
-// Stores and updates all systems.
-// Owns systems using smart pointers (no leaks).
+// ============================================================
+// SystemManager
+// ============================================================
+// Stores and updates all registered systems.
+// Owns systems via unique_ptr (automatic cleanup).
+// ============================================================
+
 class SystemManager
 {
 public:
-    // Add a new system
+    // Add a new system (returns reference for chaining)
     template<typename T, typename... Args>
     T& AddSystem(Args&&... args)
     {
@@ -33,8 +42,8 @@ public:
         return ref;
     }
 
-    // Update all systems
-    void UpdateAll(Registry& registry, float deltaTime)
+    // Update all systems in registration order
+    void UpdateAll(Registry& registry, double deltaTime)
     {
         for (auto& system : m_Systems)
         {
@@ -43,6 +52,5 @@ public:
     }
 
 private:
-    // Stores all systems
     std::vector<std::unique_ptr<System>> m_Systems;
 };
