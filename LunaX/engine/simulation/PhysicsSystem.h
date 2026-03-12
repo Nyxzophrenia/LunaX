@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../ecs/Systems.h"
+#include "../ecs/Registry.h"
 #include "../ecs/Component.h"
 #include <iostream>
 
